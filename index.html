@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jonas Kubilius</title>
+<meta name="description" content="Molecular biologist working on genome editing. Previously NeuroAI researcher and startup founder.">
+<style>
+  :root {
+    --bg: #1c1b1a;
+    --ink: #dad8ce;
+    --soft: #8c8a83;
+    --acc: #d4a84a;
+    color-scheme: dark;
+  }
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 'Avenir Next', Avenir, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { margin: 0; }
+
+  .wrap { max-width: 40rem; padding-inline: clamp(1.25rem, 6vw, 5rem); }
+  header.wrap { padding-top: clamp(3rem, 10vh, 7rem); }
+  main.wrap { padding-bottom: 5rem; }
+
+  /* the score: full-bleed, in the flow, scrolls with the page */
+  #score { display: block; width: 100%; height: clamp(210px, 24vw, 330px); margin: 1.5rem 0 .5rem; }
+  #score .hair  { stroke: var(--soft); stroke-width: 1; fill: none; }
+  #score .thin  { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+  #score .heavy { stroke: var(--ink); stroke-width: 3.5; fill: none; }
+  #score .solid { fill: var(--ink); }
+  #score .dots  { stroke: var(--soft); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0 10; fill: none; }
+  #score .acc   { fill: var(--acc); }
+  #score .accr  { stroke: var(--acc); stroke-width: 1.5; fill: none; }
+
+  h1 { font-weight: 400; font-size: 2.3rem; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .7rem; }
+  .lede { margin: 0; color: var(--soft); max-width: 32rem; }
+  h2 { font-weight: 500; font-size: .95rem; color: var(--acc); margin: 2.8rem 0 .9rem; }
+  p { margin: 0; }
+  section:first-child h2 { margin-top: 1.5rem; }
+
+  ul { list-style: none; margin: 0; padding: 0; }
+  .rows > li {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: .1rem 1.25rem;
+    margin-bottom: .85rem;
+  }
+  .when { color: var(--soft); font-size: .85rem; font-variant-numeric: lining-nums tabular-nums; padding-top: .1rem; }
+  .sep { color: var(--soft); padding-left: .35em; }
+
+  /* secondary layer: links to projects, papers, venues */
+  .meta { font-size: .8rem; line-height: 1.5; color: var(--soft); margin-top: .2rem; }
+  .meta a { white-space: nowrap; text-decoration-color: color-mix(in srgb, var(--soft) 45%, transparent); }
+  .meta .sep { padding-left: .3em; }
+
+  a {
+    color: inherit;
+    text-decoration: underline 1px;
+    text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent);
+    text-underline-offset: .18em;
+  }
+  a:hover { color: var(--acc); text-decoration-color: var(--acc); }
+  a:focus-visible { outline: 1.5px solid var(--acc); outline-offset: 2px; }
+
+  footer.meta { margin-top: 3.5rem; }
+  .credit { margin-top: .5rem; font-size: .72rem; opacity: .75; }
+  footer.meta a { text-decoration-color: color-mix(in srgb, var(--soft) 45%, transparent); }
+
+  /* wide screens: scatter the blocks like marks on a score */
+  @media (min-width: 1150px) {
+    main.wrap {
+      max-width: 80rem;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 2rem;
+      align-items: start;
+    }
+    main > * { min-width: 0; }
+    /* offsets come from --dx/--dy/--sy/--gc; the script below randomizes them per load, these are the fallbacks */
+    main .rows > li { margin-left: var(--dx, 0); margin-top: var(--dy, 0); }
+    main > section:nth-of-type(1) { grid-column: 1 / span 7; }
+    main > section:nth-of-type(2) { grid-column: 8 / span 5; margin-top: var(--sy, 1.25rem); }
+    main > section:nth-of-type(2) .rows > li { grid-template-columns: 6rem 1fr; }
+    main > section:nth-of-type(1) .rows > li:nth-child(2) { --dx: 4rem; --dy: 1.5rem; }
+    main > section:nth-of-type(2) .rows > li:nth-child(1) { --dx: 2.5rem; }
+    main > section:nth-of-type(2) .rows > li:nth-child(2) { --dx: -1.5rem; --dy: 1.75rem; }
+    main > section:nth-of-type(3) { grid-column: var(--gc, 3) / 12; margin-top: var(--sy, -1rem); }
+    main > section:nth-of-type(3) .rows { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
+    main > section:nth-of-type(3) .rows > li { display: block; }
+    main > section:nth-of-type(3) .when { display: none; }
+    main > section:nth-of-type(3) .rows > li:nth-child(2) { --dx: 3rem; --dy: 2.5rem; }
+    main > section:nth-of-type(3) .rows > li:nth-child(3) { --dx: 5rem; --dy: .5rem; }
+    main > section:nth-of-type(3) .rows > li:nth-child(4) { --dy: 3rem; }
+    main > footer { grid-column: 7 / span 6; justify-self: end; text-align: right; }
+  }
+
+  @media (max-width: 560px) {
+    html { font-size: 16px; }
+    h1 { font-size: 2rem; }
+    .rows > li { grid-template-columns: 1fr; margin-bottom: .9rem; }
+    .when { font-size: .85rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <h1>Jonas Kubilius</h1>
+  <p class="lede">Molecular biologist working on genome editing. Previously NeuroAI researcher and startup founder. Vilnius, Lithuania.</p>
+</header>
+
+<svg id="score" aria-hidden="true"></svg>
+
+<main class="wrap">
+  <section>
+    <h2>Science</h2>
+    <ul class="rows">
+      <li>
+        <span class="when">2024-present</span>
+        <div>
+          <p>Genome editing, <a href="https://www.joneslab.eu/">Jones lab</a> (VU-EMBL)</p>
+          <p class="meta"><a href="https://joneslabeu.github.io/protocols/">Protocols</a><span class="sep">·</span> <a href="https://doi.org/10.64898/2026.06.25.734514">Phage efficiency</a> (2026)</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">2005-2018</span>
+        <div>
+          <p>Human-AI alignment at MIT and KU Leuven<span class="sep">·</span> MSCA Global Fellow</p>
+          <p class="meta"><a href="https://web.mit.edu/bcs/nklab/">Kanwisher</a>, <a href="https://dicarlolab.mit.edu/">DiCarlo</a>, <a href="https://www.hoplab.be/">Op de Beeck</a>, <a href="https://gestaltrevision.be/">Wagemans</a> labs</p>
+          <p class="meta"><a href="https://proceedings.neurips.cc/paper_files/paper/2019/hash/7813d1590d28a7dd372ad54b5d29d033-Abstract.html">NeurIPS'19 oral</a><span class="sep">·</span> <a href="https://doi.org/10.1016/j.neuron.2020.07.040">Neuron, 2020</a><span class="sep">·</span> <a href="https://proceedings.neurips.cc/paper_files/paper/2017/hash/ab541d874c7bc19ab77642849e02b89f-Abstract.html">NeurIPS'17 oral</a><span class="sep">·</span> <a href="https://proceedings.neurips.cc/paper_files/paper/2018/hash/6be93f7a96fed60c477d30ae1de032fd-Abstract.html">NeurIPS'18</a><span class="sep">·</span> <a href="https://doi.org/10.1038/s41593-019-0392-5">Nature Neuroscience, 2019</a><span class="sep">·</span> <a href="https://doi.org/10.1371/journal.pcbi.1004896">PLoS Comp Bio, 2016</a><span class="sep">·</span> <a href="https://arxiv.org/abs/2007.04954">NeurIPS'21 benchmarks oral</a></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Industry</h2>
+    <ul class="rows">
+      <li>
+        <span class="when">2019-2024</span>
+        <div>
+          <p>CEO, <a href="https://github.com/threethirds">Three Thirds</a></p>
+          <p class="meta">ML for object detection, medical imaging, data pipelines, RL</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">2022-2023</span>
+        <div>
+          <p>CTO, <a href="https://www.herlab.bio/">HERlab</a></p>
+          <p class="meta">High-throughput unconventional yeast screening, UKRI-funded</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Other projects</h2>
+    <ul class="rows">
+      <li>
+        <span class="when"></span>
+        <div>
+          <p>Writing</p>
+          <p class="meta"><a href="https://qbilius.github.io/spirit/">Spirit</a><span class="sep">·</span> <a href="https://qbilius.github.io/duona/">Eilėje prie duonos</a></p>
+        </div>
+      </li>
+      <li>
+        <span class="when"></span>
+        <div>
+          <p>Conceptual art</p>
+          <p class="meta">Swamp Intelligence with Urbonas Studio (<a href="https://swamp.lt/">Venice Biennale'18</a>, <a href="https://nugu.lt/?p=1580">Taipei Biennial'20</a>, <a href="https://nugu.lt/?p=1418">ZKM'20</a>)</p>
+        </div>
+      </li>
+      <li>
+        <span class="when"></span>
+        <div>
+          <p>Theater / Film</p>
+          <p class="meta"><a href="https://www.youtube.com/watch?v=iTAhfDFwPjI">Rektorius</a> (2021)<span class="sep">·</span> <a href="https://www.jayscheib.org/">Jay Scheib's shows</a> (2005-2009)</p>
+        </div>
+      </li>
+      <li>
+        <span class="when"></span>
+        <div>
+          <p>Teaching and mentorship</p>
+          <p class="meta"><a href="https://github.com/qbilius/phd-expectations">PhD alignment of expectations</a> (2026)<span class="sep">·</span> <a href="https://github.com/qbilius/learn_like_a_machine">What is it like to be a learning machine</a> (2024)</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="meta">
+    <a href="https://www.linkedin.com/in/qbilius">LinkedIn</a><span class="sep">·</span> <a href="https://github.com/qbilius">GitHub</a><span class="sep">·</span> <a href="https://x.com/qbilius">X</a>
+    <p class="credit">Theme inspired by Cornelius Cardew's <a href="https://en.wikipedia.org/wiki/Treatise_(music)">Treatise</a> / via <a href="https://walldye.com/treatise">Walldye</a></p>
+  </footer>
+</main>
+
+<script>
+// Graphic score of an edit: a DNA duplex as the lifeline, opened by Cas, cut, repaired. New score on every load.
+(() => {
+  const svg = document.getElementById('score');
+  const seed = (Math.random() * 2 ** 32) >>> 0;
+  const mulberry = a => () => {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+
+  function draw() {
+    const W = svg.clientWidth, H = svg.clientHeight;
+    if (!W) return;
+    const R = mulberry(seed);
+    const rnd = (a, b) => a + (b - a) * R();
+    const ri = (a, b) => Math.floor(rnd(a, b + 1));
+    const f = n => n.toFixed(1);
+    const k = Math.max(.55, Math.min(1.1, H / 320));
+    const Y = Math.round(H * .56), g = 4.5 * k, top = Y - g, bot = Y + g;
+    let out = '';
+    const L = (x1, y1, x2, y2, c) => { out += `<line class="${c}" x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}"/>`; };
+    const C = (x, y, r, c) => { out += `<circle class="${c}" cx="${f(x)}" cy="${f(y)}" r="${f(r)}"/>`; };
+    const P = (d, c) => { out += `<path class="${c}" d="${d}"/>`; };
+    const Rect = (x, y, w, h) => { out += `<rect class="solid" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}"/>`; };
+
+    // plain duplex, optionally with base-pair rungs
+    const duplex = (x, len, rungs) => {
+      L(x, top, x + len, top, 'thin');
+      L(x, bot, x + len, bot, 'thin');
+      if (rungs) for (let xi = x + 4 * k; xi < x + len - 2; xi += 7 * k) L(xi, top, xi, bot, 'hair');
+      return x + len;
+    };
+
+    // Cas9 R-loop: strands open, guide pairs with the target strand, PAM next door
+    const rloop = x => {
+      const w = rnd(170, 230) * k, h = rnd(38, 52) * k;
+      P(`M${f(x)} ${f(top)}C${f(x + .22 * w)} ${f(top - 1.33 * h)} ${f(x + .78 * w)} ${f(top - 1.33 * h)} ${f(x + w)} ${f(top)}`, 'thin');
+      P(`M${f(x)} ${f(bot)}C${f(x + .22 * w)} ${f(bot + 1.33 * h)} ${f(x + .78 * w)} ${f(bot + 1.33 * h)} ${f(x + w)} ${f(bot)}`, 'thin');
+      const gy = bot + .63 * h - 7 * k;
+      P(`M${f(x + .2 * w)} ${f(gy)}Q${f(x + .5 * w)} ${f(bot + 1.37 * h - 7 * k)} ${f(x + .8 * w)} ${f(gy)}`, 'dots');
+      const sx = x + .8 * w;
+      L(sx, gy, sx - 2 * k, Y + .1 * h, 'hair');
+      L(sx - 2 * k, Y + .1 * h, sx - 2 * k, Y - .3 * h, 'hair');
+      L(sx + 2 * k, Y + .1 * h, sx + 2 * k, Y - .3 * h, 'hair');
+      C(sx, Y - .3 * h - 4 * k, 4 * k, 'hair');
+      C(x + w / 2, Y, .56 * w, 'thin');
+      Rect(x + w + 4 * k, top - 2.5 * k, 10 * k, 5 * k);
+      return x + w;
+    };
+
+    // staggered double-strand break, the edit site
+    const cut = x => {
+      const s = 12 * k, G = rnd(26, 36) * k, cx = x + (G + s) / 2;
+      L(x, bot, x + s, bot, 'thin');
+      L(x + G, top, x + G + s, top, 'thin');
+      C(cx, Y, (G + s) * .75, 'accr');
+      C(cx, Y, 5 * k, 'acc');
+      P(`M${f(cx - 90 * k)} ${f(Y - 110 * k)}Q${f(cx - 10 * k)} ${f(Y - 120 * k)} ${f(cx)} ${f(Y - (G + s) * .75 - 10 * k)}`, 'dots');
+      return x + G + s;
+    };
+
+    const feats = [
+      // double helix twist
+      x => {
+        const p = rnd(55, 85) * k, n = ri(2, 4), len = p * n, A = rnd(14, 22) * k;
+        let d1 = '', d2 = '';
+        const steps = Math.ceil(len / 2);
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps * len, a = g + (A - g) * Math.sin(Math.PI * t / len), c = Math.cos(2 * Math.PI * t / p);
+          const y1 = Y - a * c, y2 = Y + a * c;
+          d1 += (i ? 'L' : 'M') + f(x + t) + ' ' + f(y1);
+          d2 += (i ? 'L' : 'M') + f(x + t) + ' ' + f(y2);
+          if (i % 4 === 2 && Math.abs(y1 - y2) > 4) L(x + t, y1, x + t, y2, 'hair');
+        }
+        P(d1, 'thin'); P(d2, 'thin');
+        return x + len;
+      },
+      // insertion: a donor fragment hovering over the gap
+      x => {
+        const w = rnd(55, 85) * k, rise = rnd(70, 100) * k;
+        L(x, top, x, bot, 'thin'); L(x + w, top, x + w, bot, 'thin');
+        L(x, top - rise, x + w, top - rise, 'thin'); L(x, bot - rise, x + w, bot - rise, 'thin');
+        for (let xi = x + 4 * k; xi < x + w - 2; xi += 7 * k) L(xi, top - rise, xi, bot - rise, 'hair');
+        P(`M${f(x)} ${f(bot - rise + 6 * k)}Q${f(x - 18 * k)} ${f(Y - rise / 2)} ${f(x)} ${f(top - 6 * k)}`, 'dots');
+        P(`M${f(x + w)} ${f(bot - rise + 6 * k)}Q${f(x + w + 18 * k)} ${f(Y - rise / 2)} ${f(x + w)} ${f(top - 6 * k)}`, 'dots');
+        return x + w;
+      },
+      // deletion: a stretch looped out below the rejoined duplex
+      x => {
+        const w = rnd(40, 65) * k, d = rnd(45, 70) * k;
+        duplex(x, w, false);
+        P(`M${f(x)} ${f(bot)}C${f(x - 10 * k)} ${f(bot + d)} ${f(x + w + 10 * k)} ${f(bot + d)} ${f(x + w)} ${f(bot)}`, 'hair');
+        P(`M${f(x + 4 * k)} ${f(bot)}C${f(x - 2 * k)} ${f(bot + d - 8 * k)} ${f(x + w + 2 * k)} ${f(bot + d - 8 * k)} ${f(x + w - 4 * k)} ${f(bot)}`, 'hair');
+        L(x + .2 * w, bot + .5 * d, x + .8 * w, bot + .9 * d, 'heavy');
+        return x + w;
+      },
+      // base edit: one rung swapped
+      x => {
+        const n = ri(7, 11), p = 7 * k, len = (n + 1) * p, j = ri(2, n - 3), ex = x + (j + 1) * p;
+        L(x, top, x + len, top, 'thin'); L(x, bot, x + len, bot, 'thin');
+        for (let i = 0; i < n; i++) L(x + (i + 1) * p, top, x + (i + 1) * p, bot, i === j ? 'heavy' : 'hair');
+        C(ex, Y, 13 * k, 'hair');
+        L(ex, Y - 13 * k, ex + 14 * k, Y - 48 * k, 'hair');
+        C(ex + 16 * k, Y - 53 * k, 5 * k, 'solid');
+        return x + len;
+      },
+      // sequencing reads piled under the locus
+      x => {
+        const span = rnd(140, 240) * k, vx = x + rnd(.3, .7) * span;
+        duplex(x, span, false);
+        const rows = ri(6, 10);
+        for (let i = 0; i < rows; i++) {
+          const y = bot + 16 * k + i * 5.5 * k;
+          let cx = x + rnd(-10, 30) * k;
+          while (cx < x + span - 10 * k) {
+            const l = rnd(25, 80) * k, e = Math.min(cx + l, x + span);
+            if (R() < .75) {
+              L(cx, y, e, y, 'hair');
+              if (cx < vx && vx < e && R() < .6) Rect(vx - k, y - 1.5 * k, 2.5 * k, 3 * k);
+            }
+            cx += l + rnd(6, 30) * k;
+          }
+        }
+        return x + span;
+      },
+      // free guide RNA: spacer and scaffold hairpins
+      x => {
+        const len = rnd(70, 110) * k, y = Y - rnd(85, 120) * k, e = x + len;
+        duplex(x, len + 40 * k, R() < .5);
+        P(`M${f(x)} ${f(y)}H${f(e)}`, 'dots');
+        L(e, y, e + 20 * k, y, 'hair');
+        L(e + 4 * k, y, e + 4 * k, y - 26 * k, 'hair'); L(e + 8 * k, y, e + 8 * k, y - 26 * k, 'hair');
+        C(e + 6 * k, y - 31 * k, 5 * k, 'hair');
+        L(e + 16 * k, y, e + 16 * k, y - 14 * k, 'hair'); L(e + 20 * k, y, e + 20 * k, y - 14 * k, 'hair');
+        C(e + 18 * k, y - 18 * k, 4 * k, 'hair');
+        return x + len + 40 * k;
+      },
+    ];
+
+    const shuffle = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+    const ax = W < 700 ? 0 : W * rnd(.28, .6);
+    let cas = false, pool = [];
+    let x = duplex(0, rnd(30, 90) * k, R() < .5);
+    while (x < W) {
+      if (!cas && (x > ax || x > W - 330 * k)) {
+        x = rloop(x);
+        x = duplex(x, rnd(16, 26) * k, false);
+        x = cut(x);
+        cas = true;
+      } else {
+        if (!pool.length) pool = shuffle(feats);
+        x = pool.pop()(x);
+      }
+      x = duplex(x, rnd(40, 120) * k, R() < .4);
+    }
+
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = out;
+  }
+
+  draw();
+  let t, lastW = svg.clientWidth;
+  addEventListener('resize', () => {
+    if (svg.clientWidth === lastW) return;
+    lastW = svg.clientWidth;
+    clearTimeout(t); t = setTimeout(draw, 150);
+  });
+})();
+</script>
+<script>
+// Scatter the text blocks a little differently on each load (only takes effect on wide screens).
+(() => {
+  const r = (a, b) => (a + (b - a) * Math.random()).toFixed(2) + 'rem';
+  const [sci, ind, oth] = document.querySelectorAll('main > section');
+  const set = (el, dx, dy) => { el.style.setProperty('--dx', dx); el.style.setProperty('--dy', dy); };
+  sci.querySelectorAll('.rows > li').forEach((li, i) => set(li, r(0, i ? 5 : 1.5), r(0, i ? 1.75 : 0)));
+  ind.style.setProperty('--sy', r(0, 3));
+  ind.querySelectorAll('.rows > li').forEach((li, i) => set(li, r(-1.5, 3), r(0, i ? 2 : 0)));
+  oth.style.setProperty('--gc', 2 + Math.floor(Math.random() * 3));
+  oth.style.setProperty('--sy', r(-1.5, 1));
+  oth.querySelectorAll('.rows > li').forEach(li => set(li, r(-.5, 5.5), r(0, 3)));
+})();
+</script>
+</body>
+</html>

@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231c1b1a'/><rect x='18' y='18' width='28' height='28' fill='none' stroke='%23d4a84a' stroke-width='5'/></svg>">
+<meta name="theme-color" content="#1c1b1a">
 <title>Jonas Kubilius</title>
 <meta name="description" content="Molecular biologist working on genome editing. Previously NeuroAI researcher and startup founder.">
 <style>
@@ -37,18 +39,10 @@
 
   h1 { font-weight: 400; font-size: 2.3rem; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .7rem; }
   .lede { margin: 0; color: var(--soft); max-width: 32rem; }
-  h2 { font-weight: 500; font-size: .95rem; color: var(--acc); margin: 2.8rem 0 .9rem; }
+  .links { margin-top: .7rem; font-size: .85rem; color: var(--soft); }
+  .links .sep { padding-left: .3em; }
   p { margin: 0; }
-  section:first-child h2 { margin-top: 1.5rem; }
 
-  ul { list-style: none; margin: 0; padding: 0; }
-  .rows > li {
-    display: grid;
-    grid-template-columns: 7.5rem 1fr;
-    gap: .1rem 1.25rem;
-    margin-bottom: .85rem;
-  }
-  .when { color: var(--soft); font-size: .85rem; font-variant-numeric: lining-nums tabular-nums; padding-top: .1rem; }
   .sep { color: var(--soft); padding-left: .35em; }
 
   /* secondary layer: links to projects, papers, venues */
@@ -65,43 +59,51 @@
   a:hover { color: var(--acc); text-decoration-color: var(--acc); }
   a:focus-visible { outline: 1.5px solid var(--acc); outline-offset: 2px; }
 
+  /* sections and groups */
+  .block { margin-top: 3.2rem; }
+  .block > h2 { font-weight: 500; font-size: 1.25rem; color: var(--acc); margin: 0; }
+  .group { margin-top: 1.4rem; }
+  .group h3 { font-weight: 500; font-size: 1.02rem; margin: 0 0 .25rem; }
+  .group h3 a { text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); }
+  .desc { margin-bottom: .5rem; font-size: .95rem; }
+  .yrs .sep { padding-left: .3em; }
+  .yrs { font-size: .75rem; font-weight: 400; color: var(--soft); margin-left: .6rem; font-variant-numeric: lining-nums tabular-nums; }
+  .slots { display: grid; grid-template-columns: 5.2rem 1fr; gap: .25rem .8rem; margin: 0; font-size: .8rem; line-height: 1.5; color: var(--soft); }
+  .slots dt { font-size: .7rem; letter-spacing: .04em; padding-top: .1rem; opacity: .8; }
+  .slots dd { margin: 0; }
+  .slots a { white-space: nowrap; text-decoration-color: color-mix(in srgb, var(--soft) 45%, transparent); }
+  .slots .sep { padding-left: .3em; }
+
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .projects li { margin-top: 1.1rem; font-size: .98rem; }
+  .projects a { text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); }
+  .note { font-size: .8rem; color: var(--soft); margin-top: .1rem; }
+  .note a { white-space: nowrap; text-decoration-color: color-mix(in srgb, var(--soft) 45%, transparent); }
+  .note .sep { padding-left: .3em; }
+  .group .note + .slots { margin-top: .5rem; }
+  .slots dt { white-space: nowrap; }
+
+  /* laptop and up: three regular columns per section */
+  @media (min-width: 900px) {
+    main.wrap { max-width: 76rem; }
+    .block > h2 { margin-bottom: .2rem; }
+    .projects { grid-column: 1 / -1; display: flex; flex-wrap: wrap; column-gap: 3.5rem; }
+    .block { display: grid; grid-template-columns: repeat(auto-fill, 23rem); justify-content: start; gap: 0 2.5rem; align-items: start; }
+    .block > * { min-width: 0; }
+    .group h3 { white-space: nowrap; }
+    .block > h2 { grid-column: 1 / -1; }
+    .block.flat { display: block; }
+    main > footer { text-align: right; }
+  }
+
   footer.meta { margin-top: 3.5rem; }
   .credit { margin-top: .5rem; font-size: .72rem; opacity: .75; }
   footer.meta a { text-decoration-color: color-mix(in srgb, var(--soft) 45%, transparent); }
 
-  /* wide screens: scatter the blocks like marks on a score */
-  @media (min-width: 1150px) {
-    main.wrap {
-      max-width: 80rem;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 2rem;
-      align-items: start;
-    }
-    main > * { min-width: 0; }
-    /* offsets come from --dx/--dy/--sy/--gc; the script below randomizes them per load, these are the fallbacks */
-    main .rows > li { margin-left: var(--dx, 0); margin-top: var(--dy, 0); }
-    main > section:nth-of-type(1) { grid-column: 1 / span 7; }
-    main > section:nth-of-type(2) { grid-column: 8 / span 5; margin-top: var(--sy, 1.25rem); }
-    main > section:nth-of-type(2) .rows > li { grid-template-columns: 6rem 1fr; }
-    main > section:nth-of-type(1) .rows > li:nth-child(2) { --dx: 4rem; --dy: 1.5rem; }
-    main > section:nth-of-type(2) .rows > li:nth-child(1) { --dx: 2.5rem; }
-    main > section:nth-of-type(2) .rows > li:nth-child(2) { --dx: -1.5rem; --dy: 1.75rem; }
-    main > section:nth-of-type(3) { grid-column: var(--gc, 3) / 12; margin-top: var(--sy, -1rem); }
-    main > section:nth-of-type(3) .rows { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
-    main > section:nth-of-type(3) .rows > li { display: block; }
-    main > section:nth-of-type(3) .when { display: none; }
-    main > section:nth-of-type(3) .rows > li:nth-child(2) { --dx: 3rem; --dy: 2.5rem; }
-    main > section:nth-of-type(3) .rows > li:nth-child(3) { --dx: 5rem; --dy: .5rem; }
-    main > section:nth-of-type(3) .rows > li:nth-child(4) { --dy: 3rem; }
-    main > footer { grid-column: 7 / span 6; justify-self: end; text-align: right; }
-  }
 
   @media (max-width: 560px) {
     html { font-size: 16px; }
     h1 { font-size: 2rem; }
-    .rows > li { grid-template-columns: 1fr; margin-bottom: .9rem; }
-    .when { font-size: .85rem; }
   }
 </style>
 </head>
@@ -109,89 +111,71 @@
 
 <header class="wrap">
   <h1>Jonas Kubilius</h1>
-  <p class="lede">Molecular biologist working on genome editing. Previously NeuroAI researcher and startup founder. Vilnius, Lithuania.</p>
+  <p class="lede">AI researcher turned molecular biologist. Vilnius, Lithuania.</p>
+  <p class="links"><a href="https://www.linkedin.com/in/qbilius">LinkedIn</a><span class="sep">·</span> <a href="https://github.com/qbilius">GitHub</a><span class="sep">·</span> <a href="https://x.com/qbilius">X</a></p>
 </header>
 
 <svg id="score" aria-hidden="true"></svg>
 
 <main class="wrap">
-  <section>
+  <section class="block">
     <h2>Science</h2>
-    <ul class="rows">
-      <li>
-        <span class="when">2024-present</span>
-        <div>
-          <p>Genome editing, <a href="https://www.joneslab.eu/">Jones lab</a> (VU-EMBL)</p>
-          <p class="meta"><a href="https://joneslabeu.github.io/protocols/">Protocols</a><span class="sep">·</span> <a href="https://doi.org/10.64898/2026.06.25.734514">Phage efficiency</a> (2026)</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">2005-2018</span>
-        <div>
-          <p>Human-AI alignment at MIT and KU Leuven<span class="sep">·</span> MSCA Global Fellow</p>
-          <p class="meta"><a href="https://web.mit.edu/bcs/nklab/">Kanwisher</a>, <a href="https://dicarlolab.mit.edu/">DiCarlo</a>, <a href="https://www.hoplab.be/">Op de Beeck</a>, <a href="https://gestaltrevision.be/">Wagemans</a> labs</p>
-          <p class="meta"><a href="https://proceedings.neurips.cc/paper_files/paper/2019/hash/7813d1590d28a7dd372ad54b5d29d033-Abstract.html">NeurIPS'19 oral</a><span class="sep">·</span> <a href="https://doi.org/10.1016/j.neuron.2020.07.040">Neuron, 2020</a><span class="sep">·</span> <a href="https://proceedings.neurips.cc/paper_files/paper/2017/hash/ab541d874c7bc19ab77642849e02b89f-Abstract.html">NeurIPS'17 oral</a><span class="sep">·</span> <a href="https://proceedings.neurips.cc/paper_files/paper/2018/hash/6be93f7a96fed60c477d30ae1de032fd-Abstract.html">NeurIPS'18</a><span class="sep">·</span> <a href="https://doi.org/10.1038/s41593-019-0392-5">Nature Neuroscience, 2019</a><span class="sep">·</span> <a href="https://doi.org/10.1371/journal.pcbi.1004896">PLoS Comp Bio, 2016</a><span class="sep">·</span> <a href="https://arxiv.org/abs/2007.04954">NeurIPS'21 benchmarks oral</a></p>
-        </div>
-      </li>
-    </ul>
+    <article class="group lead">
+    <h3>Genome editing<span class="yrs">VU-EMBL<span class="sep">·</span> 2024-present</span></h3>
+      <p class="desc">Engineering more versatile CRISPR-Cas systems and new genome editing tools for bacteriophages</p>
+      <dl class="slots">
+        <dt>Key collabs</dt><dd><a href="https://www.joneslab.eu/">Jones</a>, <a href="https://patinioslab.org/">Patinios</a></dd>
+        <dt>Papers</dt><dd><a href="https://doi.org/10.64898/2026.06.25.734514">Phage genome editing via DNA nicking</a> (bioRxiv'26)</dd>
+        <dt>Built</dt><dd><a href="https://joneslabeu.github.io/protocols/">Protocols</a><span class="sep">·</span> <a href="https://github.com/qbilius/phd-expectations">PhD alignment of expectations</a></dd>
+      </dl>
+    </article>
+    <article class="group">
+    <h3>Human-AI alignment<span class="yrs">MIT, KU Leuven<span class="sep">·</span> 2012-2019</span></h3>
+      <p class="desc">Building and benchmarking brain-like deep networks of primate vision</p>
+      <dl class="slots">
+        <dt>Key collabs</dt><dd><a href="https://dicarlolab.mit.edu/">DiCarlo</a>, <a href="https://neuroailab.stanford.edu/">Yamins</a>, <a href="https://www.hoplab.be/">Op de Beeck</a></dd>
+        <dt>Funding</dt><dd>JuMo, PDM, FWO</dd>
+        <dt>Papers</dt><dd><a href="https://proceedings.neurips.cc/paper_files/paper/2017/hash/ab541d874c7bc19ab77642849e02b89f-Abstract.html">NeurIPS'17</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2018/hash/6be93f7a96fed60c477d30ae1de032fd-Abstract.html">'18</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2019/hash/7813d1590d28a7dd372ad54b5d29d033-Abstract.html">'19</a>, <a href="https://arxiv.org/abs/2007.04954">'21</a><span class="sep">·</span> <a href="https://doi.org/10.1038/s41593-019-0392-5">Nat Neurosci'19</a><span class="sep">·</span> <a href="https://doi.org/10.1016/j.neuron.2020.07.040">Neuron'20</a><span class="sep">·</span> <a href="https://doi.org/10.1371/journal.pcbi.1004896">PLoS Comp Bio'16</a></dd>
+        <dt>Built</dt><dd><a href="https://www.brain-score.org/">Brain-Score</a><span class="sep">·</span> <a href="https://github.com/dicarlolab/CORnet">CORnet</a><span class="sep">·</span> <a href="https://github.com/qbilius/learn_like_a_machine">What is it like to be a learning machine</a></dd>
+      </dl>
+    </article>
+    <article class="group">
+    <h3>Visual cortex<span class="yrs">MIT, KU Leuven<span class="sep">·</span> 2005-2012</span></h3>
+      <p class="desc">How the human visual cortex represents shapes, objects, and scenes</p>
+      <dl class="slots">
+        <dt>Key collabs</dt><dd><a href="https://web.mit.edu/bcs/nklab/">Kanwisher</a>, <a href="https://faculty.college.emory.edu/sites/dilks/main.php">Dilks</a>, <a href="https://www.hoplab.be/">Op de Beeck</a>, <a href="https://gestaltrevision.be/">Wagemans</a></dd>
+        <dt>Funding</dt><dd><a href="https://fwo.be/en/support-programmes/all-calls/phd/phd-fellowship-fundamental-research">FWO fellowship</a></dd>
+        <dt>Papers</dt><dd><a href="https://doi.org/10.3389/fncom.2014.00158">Frontiers'14</a><span class="sep">·</span> <a href="https://doi.org/10.1523/JNEUROSCI.1935-11.2011">J Neurosci'11</a><span class="sep">·</span> <a href="https://doi.org/10.1177/0956797611417000">Psych Sci'11</a></dd>
+        <dt>Built</dt><dd><a href="https://github.com/qbilius/psychopy_ext">psychopy_ext</a></dd>
+      </dl>
+    </article>
   </section>
 
-  <section>
+  <section class="block">
     <h2>Industry</h2>
-    <ul class="rows">
-      <li>
-        <span class="when">2019-2024</span>
-        <div>
-          <p>CEO, <a href="https://github.com/threethirds">Three Thirds</a></p>
-          <p class="meta">ML for object detection, medical imaging, data pipelines, RL</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">2022-2023</span>
-        <div>
-          <p>CTO, <a href="https://www.herlab.bio/">HERlab</a></p>
-          <p class="meta">High-throughput unconventional yeast screening, UKRI-funded</p>
-        </div>
-      </li>
-    </ul>
+    <article class="group">
+    <h3><a href="https://github.com/threethirds">Three Thirds</a><span class="yrs">2019-2024</span></h3>
+      <p class="desc">Co-founder and CEO</p>
+      <p class="note">Real-time object detection, medical image segmentation, production ML pipelines, deep RL</p>
+    </article>
+    <article class="group">
+    <h3><a href="https://www.herlab.bio/">HERlab</a><span class="yrs">2022-2023</span></h3>
+      <p class="desc">Co-founder and CTO</p>
+      <p class="note">High-throughput unconventional yeast screening platform (funding: Innovate UK <a href="https://gtr.ukri.org/projects?ref=10089332">1</a>, <a href="https://gtr.ukri.org/projects?ref=10074086#/tabOverview">2</a>, <a href="https://gtr.ukri.org/projects?ref=10074091">3</a>)</p>
+    </article>
   </section>
 
-  <section>
-    <h2>Other projects</h2>
-    <ul class="rows">
-      <li>
-        <span class="when"></span>
-        <div>
-          <p>Writing</p>
-          <p class="meta"><a href="https://qbilius.github.io/spirit/">Spirit</a><span class="sep">·</span> <a href="https://qbilius.github.io/duona/">Eilėje prie duonos</a></p>
-        </div>
-      </li>
-      <li>
-        <span class="when"></span>
-        <div>
-          <p>Conceptual art</p>
-          <p class="meta">Swamp Intelligence with Urbonas Studio (<a href="https://swamp.lt/">Venice Biennale'18</a>, <a href="https://nugu.lt/?p=1580">Taipei Biennial'20</a>, <a href="https://nugu.lt/?p=1418">ZKM'20</a>)</p>
-        </div>
-      </li>
-      <li>
-        <span class="when"></span>
-        <div>
-          <p>Theater / Film</p>
-          <p class="meta"><a href="https://www.youtube.com/watch?v=iTAhfDFwPjI">Rektorius</a> (2021)<span class="sep">·</span> <a href="https://www.jayscheib.org/">Jay Scheib's shows</a> (2005-2009)</p>
-        </div>
-      </li>
-      <li>
-        <span class="when"></span>
-        <div>
-          <p>Teaching and mentorship</p>
-          <p class="meta"><a href="https://github.com/qbilius/phd-expectations">PhD alignment of expectations</a> (2026)<span class="sep">·</span> <a href="https://github.com/qbilius/learn_like_a_machine">What is it like to be a learning machine</a> (2024)</p>
-        </div>
-      </li>
+  <section class="block flat">
+    <h2>Creative work</h2>
+    <ul class="projects">
+      <li><a href="https://qbilius.github.io/spirit/">Spirit</a><p class="note">Writing (2013-present)</p></li>
+      <li><a href="https://qbilius.github.io/duona/">Eilėje prie duonos</a><p class="note">Writing (2009-2023)</p></li>
+      <li><a href="https://swamp.lt/">Swamp Intelligence</a> with Urbonas Studio<p class="note"><a href="https://swamp.lt/">Venice Biennale'18</a><span class="sep">·</span> <a href="https://nugu.lt/?p=1580">Taipei Biennial'20</a><span class="sep">·</span> <a href="https://nugu.lt/?p=1418">ZKM'20</a></p></li>
+      <li><a href="https://www.youtube.com/watch?v=iTAhfDFwPjI">Jonas Kubilius, Rektorius</a><p class="note">Film, 2021</p></li>
     </ul>
   </section>
 
   <footer class="meta">
-    <a href="https://www.linkedin.com/in/qbilius">LinkedIn</a><span class="sep">·</span> <a href="https://github.com/qbilius">GitHub</a><span class="sep">·</span> <a href="https://x.com/qbilius">X</a>
     <p class="credit">Theme inspired by Cornelius Cardew's <a href="https://en.wikipedia.org/wiki/Treatise_(music)">Treatise</a> / via <a href="https://walldye.com/treatise">Walldye</a></p>
   </footer>
 </main>
@@ -365,20 +349,6 @@
     lastW = svg.clientWidth;
     clearTimeout(t); t = setTimeout(draw, 150);
   });
-})();
-</script>
-<script>
-// Scatter the text blocks a little differently on each load (only takes effect on wide screens).
-(() => {
-  const r = (a, b) => (a + (b - a) * Math.random()).toFixed(2) + 'rem';
-  const [sci, ind, oth] = document.querySelectorAll('main > section');
-  const set = (el, dx, dy) => { el.style.setProperty('--dx', dx); el.style.setProperty('--dy', dy); };
-  sci.querySelectorAll('.rows > li').forEach((li, i) => set(li, r(0, i ? 5 : 1.5), r(0, i ? 1.75 : 0)));
-  ind.style.setProperty('--sy', r(0, 3));
-  ind.querySelectorAll('.rows > li').forEach((li, i) => set(li, r(-1.5, 3), r(0, i ? 2 : 0)));
-  oth.style.setProperty('--gc', 2 + Math.floor(Math.random() * 3));
-  oth.style.setProperty('--sy', r(-1.5, 1));
-  oth.querySelectorAll('.rows > li').forEach(li => set(li, r(-.5, 5.5), r(0, 3)));
 })();
 </script>
 </body>

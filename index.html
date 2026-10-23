@@ -29,6 +29,7 @@
 
   /* the score: full-bleed, in the flow, scrolls with the page */
   #score { display: block; width: 100%; height: clamp(210px, 24vw, 330px); margin: 1.5rem 0 .5rem; }
+  #score .motto { fill: var(--acc); font-size: 13px; letter-spacing: .06em; }
   #score .hair  { stroke: var(--soft); stroke-width: 1; fill: none; }
   #score .thin  { stroke: var(--ink); stroke-width: 1.5; fill: none; }
   #score .heavy { stroke: var(--ink); stroke-width: 3.5; fill: none; }
@@ -171,7 +172,7 @@
       <li><a href="https://qbilius.github.io/spirit/">Spirit</a><p class="note">Writing (2013-present)</p></li>
       <li><a href="https://qbilius.github.io/duona/">Eilėje prie duonos</a><p class="note">Writing (2009-2023)</p></li>
       <li><a href="https://swamp.lt/">Swamp Intelligence</a> with Urbonas Studio<p class="note"><a href="https://swamp.lt/">Venice Biennale'18</a><span class="sep">·</span> <a href="https://nugu.lt/?p=1580">Taipei Biennial'20</a><span class="sep">·</span> <a href="https://nugu.lt/?p=1418">ZKM'20</a></p></li>
-      <li><a href="https://www.youtube.com/watch?v=iTAhfDFwPjI">Jonas Kubilius, Rektorius</a><p class="note">Film, 2021</p></li>
+      <li><a href="https://www.youtube.com/watch?v=iTAhfDFwPjI">Jonas Kubilius, Rektorius</a><p class="note">Short film, 2021</p></li>
     </ul>
   </section>
 
@@ -339,6 +340,7 @@
     }
 
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    out += `<text class="motto" x="${f(W / 2)}" y="${f(Math.max(16, H * .09))}" text-anchor="middle">2026: The year of craftsmanship</text>`;
     svg.innerHTML = out;
   }
 
